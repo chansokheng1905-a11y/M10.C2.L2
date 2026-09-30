@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>វិញ្ញាសាតេស្តគណិតវិទ្យាថ្នាក់ទី១០ (មេរៀនទី២៖ សំណុំ) - រៀបរៀងដោយ ចាន់ សុខហេង</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Kantumruy Pro & Moul -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Moul&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- KaTeX for Set Theory & Math Formula Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- html2canvas for High-Res Image Download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0A0F1D',
+              card: '#111827',
+              border: '#1E293B',
+              primary: '#6366F1',
+              cyan: '#06B6D4',
+              gold: '#F59E0B'
+            }
+          },
+          fontFamily: {
+            sans: ['Kantumruy Pro', 'sans-serif'],
+            moul: ['Moul', 'serif'],
+            mono: ['Share Tech Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0A0F1D;
+      color: #F8FAFC;
+      font-family: 'Kantumruy Pro', sans-serif;
+    }
+    .font-moul { font-family: 'Moul', serif; }
+    .glass-card {
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .option-card {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .option-card:hover {
+      border-color: #6366F1;
+      transform: translateY(-2px);
+      background-color: rgba(99, 102, 241, 0.1);
+    }
+    .option-card.selected {
+      border-color: #06B6D4;
+      background-color: rgba(6, 182, 212, 0.15);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+    }
+    .certificate-border {
+      background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #1e1b4b 100%);
+      border: 3px solid #F59E0B;
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.25);
+    }
+    @media print {
+      body { background-color: #FFFFFF !important; color: #000000 !important; }
+      .no-print { display: none !important; }
+      #printable-certificate { display: block !important; border: 2px solid #000 !important; padding: 20px !important; color: #000 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0A0F1D; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-brand-primary selection:text-white">
+
+  <!-- HEADER -->
+  <header class="w-full glass-card border-b border-slate-800/80 px-4 lg:px-8 py-3.5 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-primary to-brand-cyan flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+          <i data-lucide="layers" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold text-white tracking-wide">គណិតវិទ្យាថ្នាក់ទី១០ · មេរៀនទី២៖ សំណុំ</h1>
+          <p class="text-[11px] text-brand-gold font-semibold flex items-center gap-1">
+            <i data-lucide="award" class="w-3 h-3"></i>
+            <span>រៀបរៀងដោយ ចាន់ សុខហេង</span>
+          </p>
+        </div>
+      </div>
+
+      <div id="quiz-header-status" class="hidden flex items-center gap-3">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-brand-cyan">
+          <i data-lucide="clock" class="w-3.5 h-3.5 animate-spin"></i>
+          <span id="timer-display">60:00</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-xl bg-indigo-950 border border-indigo-700 text-indigo-300 text-xs font-bold">
+          <span id="header-stage-badge">កម្រិត ១/៥</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
+
+    <!-- ======================================================== -->
+    <!-- ផ្ទាំងទី១៖ បំពេញព័ត៌មានសិស្ស និងសេចក្តីណែនាំ -->
+    <!-- ======================================================== -->
+    <section id="view-profile" class="space-y-6">
+      <div class="text-center space-y-2">
+        <span class="px-3.5 py-1.5 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold border border-indigo-500/20 uppercase tracking-widest">
+          ជំពូកទី២ · មេរៀនទី២ (ទ្រឹស្តីសំណុំ - Set Theory)
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-moul leading-relaxed">
+          វិញ្ញាសាតេស្តសមត្ថភាពលើសំណុំ
+        </h2>
+        <p class="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto">
+          វិញ្ញាសាមានចំនួនសរុប <strong>៥០ សំណួរ</strong> បែងចែកជា <strong>៥ កម្រិតលំបាក</strong> (ពីគ្រឹះនិយមន័យរហូតដល់ចំណោទកាឌីណាល់ និងអូឡាំពិច)។ ជម្រើសចម្លើយនីមួយៗត្រូវបានឆ្លាស់ទីតាំងចៃដន្យ។
+        </p>
+      </div>
+
+      <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-6">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+          <i data-lucide="user-check" class="w-4 h-4 text-brand-cyan"></i>
+          <span>ព័ត៌មានបេក្ខជន</span>
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1.5">គោត្តនាម និងនាមសិស្ស *</label>
+            <input type="text" id="stu-name" placeholder="ឧ. ចាន់ វណ្ណា" class="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-primary">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1.5">ភេទ *</label>
+            <select id="stu-gender" class="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none">
+              <option value="ប្រុស">ប្រុស</option>
+              <option value="ស្រី">ស្រី</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1.5">ថ្នាក់ទី *</label>
+            <input type="text" id="stu-grade" value="១០ A" placeholder="ឧ. ១០ A" class="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1.5">សាលារៀន *</label>
+            <input type="text" id="stu-school" placeholder="ឧ. វិទ្យាល័យបឹងត្របែក" class="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none">
+          </div>
+        </div>
+
+        <!-- 5 Levels Overview Cards -->
+        <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2.5">
+          <span class="text-xs font-bold text-amber-400 block">រចនាសម្ព័ន្ធវិញ្ញាសាទាំង ៥ កម្រិត (សរុប ៥០ សំណួរ)៖</span>
+          <div class="grid grid-cols-1 sm:grid-cols-5 gap-2 text-[11px]">
+            <div class="p-2 rounded-xl bg-slate-900 border border-emerald-500/30 text-emerald-300">
+              <strong class="block">កម្រិត ១ (សំណួរ ១-១០)</strong>
+              <span class="text-slate-400">និយមន័យ សំណុំរង & កាឌីណាល់</span>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-900 border border-blue-500/30 text-blue-300">
+              <strong class="block">កម្រិត ២ (សំណួរ ១១-២០)</strong>
+              <span class="text-slate-400">ប្រជុំ ប្រសព្វ ផលដក & បំពេញ</span>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-900 border border-amber-500/30 text-amber-300">
+              <strong class="block">កម្រិត ៣ (សំណួរ ២១-៣០)</strong>
+              <span class="text-slate-400">ច្បាប់ដឺម៉ូកង់ & រូបមន្តកាឌីណាល់</span>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-900 border border-orange-500/30 text-orange-300">
+              <strong class="block">កម្រិត ៤ (សំណួរ ៣១-៤០)</strong>
+              <span class="text-slate-400">ចំណោទ Venn Diagram & ផលគុណដេកាត</span>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-900 border border-rose-500/30 text-rose-300">
+              <strong class="block">កម្រិត ៥ (សំណួរ ៤១-៥០)</strong>
+              <span class="text-slate-400">កម្រិតស៊ីជម្រៅ & សមីការសំណុំ</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="startQuiz()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-brand-primary to-indigo-600 hover:from-indigo-500 hover:to-indigo-400 text-white font-bold text-sm shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 transition transform active:scale-95">
+          <span>ចាប់ផ្តើមធ្វើតេស្ត ៥០ សំណួរ (START EXAM)</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+
+        <div class="text-center text-[11px] text-brand-gold font-semibold pt-2 border-t border-slate-800/80">
+          រៀបរៀងដោយ ចាន់ សុខហេង
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ផ្ទាំងកណ្តាល៖ កម្មវិធីលំហាត់ ៥០ សំណួរ (MCQ EXAM ARENA) -->
+    <!-- ======================================================== -->
+    <section id="view-quiz" class="hidden space-y-5">
+      <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+        <span>សំណួរទី <strong id="current-q-num" class="text-white text-base">1</strong> / <strong>50</strong></span>
+        <span id="quiz-level-indicator" class="font-bold text-emerald-400">កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន</span>
+      </div>
+      <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-primary via-brand-cyan to-emerald-400 transition-all duration-300" style="width: 2%;"></div>
+      </div>
+
+      <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-6">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span id="badge-level-tag" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-[11px] font-bold">
+              កម្រិត ១
+            </span>
+            <span class="text-xs text-slate-400">ឆ្លើយបាន ៖ <strong id="answered-count-badge" class="text-white">0</strong>/50</span>
+          </div>
+
+          <h3 id="question-text" class="text-base sm:text-lg font-bold text-white leading-relaxed font-sans">
+            <!-- Rendered by JS -->
+          </h3>
+        </div>
+
+        <div id="options-container" class="grid grid-cols-1 gap-3">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
+          <button id="btn-prev" onclick="navigateQuestion(-1)" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-bold text-slate-300 border border-slate-700 flex items-center gap-1.5 transition disabled:opacity-30 disabled:cursor-not-allowed">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            <span>ថយក្រោយ</span>
+          </button>
+          
+          <div class="text-[11px] text-brand-gold font-semibold hidden sm:block">
+            រៀបរៀងដោយ ចាន់ សុខហេង
+          </div>
+
+          <button id="btn-next" onclick="navigateQuestion(1)" class="px-6 py-2.5 rounded-xl bg-brand-primary hover:bg-indigo-500 text-xs font-bold text-white shadow-lg shadow-indigo-600/30 flex items-center gap-1.5 transition">
+            <span id="btn-next-label">សំណួរបន្ទាប់</span>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ផ្ទាំងចុងក្រោយ៖ បង្ហាញព័ត៌មានសិស្ស និងលទ្ធផល + ទាញយក -->
+    <!-- ======================================================== -->
+    <section id="view-result" class="hidden space-y-6">
+      
+      <!-- CERTIFICATE CONTAINER (FOR IMAGE EXPORT) -->
+      <div id="printable-certificate" class="certificate-border p-6 sm:p-10 rounded-3xl shadow-2xl space-y-6 text-white relative overflow-hidden">
+        
+        <div class="absolute top-2 left-3 text-brand-gold text-xl select-none">⚜</div>
+        <div class="absolute top-2 right-3 text-brand-gold text-xl select-none">⚜</div>
+        <div class="absolute bottom-2 left-3 text-brand-gold text-xl select-none">⚜</div>
+        <div class="absolute bottom-2 right-3 text-brand-gold text-xl select-none">⚜</div>
+
+        <div class="text-center space-y-2 border-b border-amber-500/30 pb-5">
+          <div class="w-16 h-16 rounded-3xl bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 mx-auto mb-2 shadow-lg shadow-amber-500/30">
+            <i data-lucide="award" class="w-9 h-9"></i>
+          </div>
+          <h2 id="certificate-heading" class="text-xl sm:text-3xl font-extrabold text-amber-400 font-moul tracking-wide">
+            បណ្ណសរសើរ / ព្រឹត្តិបត្រលទ្ធផល
+          </h2>
+          <p class="text-xs text-slate-300">វិញ្ញាសាតេស្តទ្រឹស្តីសំណុំ (៥០ សំណួរ) · គណិតវិទ្យាថ្នាក់ទី១០ ជំពូកទី២ មេរៀនទី២</p>
+        </div>
+
+        <!-- Student Metadata Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl bg-black/40 border border-amber-500/30 text-xs">
+          <div><span class="text-slate-400 block">បេក្ខជន ៖</span> <strong id="res-stu-name" class="text-white text-sm">--</strong></div>
+          <div><span class="text-slate-400 block">ភេទ / ថ្នាក់ ៖</span> <strong id="res-stu-class" class="text-white text-sm">--</strong></div>
+          <div><span class="text-slate-400 block">សាលារៀន ៖</span> <strong id="res-stu-school" class="text-white text-sm">--</strong></div>
+          <div><span class="text-slate-400 block">វិញ្ញាសា ៖</span> <strong class="text-amber-400 text-sm">៥ កម្រិត (៥០ សំណួរ)</strong></div>
+        </div>
+
+        <!-- Score & Statistics Highlights -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+          <div class="p-4 rounded-2xl bg-black/40 border border-slate-800">
+            <span class="text-xs text-slate-400 block mb-1">ពិន្ទុសរុប</span>
+            <span id="res-score-badge" class="text-3xl font-black font-mono text-brand-cyan">0/50</span>
+          </div>
+          <div class="p-4 rounded-2xl bg-black/40 border border-slate-800">
+            <span class="text-xs text-slate-400 block mb-1">ភាគរយជោគជ័យ</span>
+            <span id="res-percentage-badge" class="text-3xl font-black font-mono text-emerald-400">0%</span>
+          </div>
+          <div class="p-4 rounded-2xl bg-black/40 border border-slate-800">
+            <span class="text-xs text-slate-400 block mb-1">និទ្ទេស / កម្រិត</span>
+            <span id="res-grade-badge" class="text-sm font-bold block mt-2 text-brand-gold">--</span>
+          </div>
+          <div class="p-4 rounded-2xl bg-black/40 border border-slate-800">
+            <span class="text-xs text-slate-400 block mb-1">ពេលចំណាយ</span>
+            <span id="res-time-spent" class="text-2xl font-black font-mono text-slate-300 mt-1 block">00:00</span>
+          </div>
+        </div>
+
+        <!-- Score Breakdown By 5 Levels -->
+        <div class="p-4 rounded-2xl bg-black/40 border border-slate-800 space-y-2">
+          <span class="text-xs font-bold text-slate-300 block">លទ្ធផលតាមកម្រិតនីមួយៗ (Level Breakdown)៖</span>
+          <div class="grid grid-cols-5 gap-2 text-center text-xs" id="levels-breakdown-row">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Certificate Footer Credit -->
+        <div class="pt-4 border-t border-amber-500/30 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-300 gap-2">
+          <span>កាលបរិច្ឆេទ ៖ <strong id="res-date" class="text-white">--</strong></span>
+          <span class="text-brand-gold font-bold">រៀបរៀងដោយ ចាន់ សុខហេង</span>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons (Download Image / Print / Restart) -->
+      <div class="flex flex-wrap items-center justify-center gap-3 no-print">
+        <button onclick="downloadAsImage()" id="btn-download-img" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 transition transform hover:scale-105">
+          <i data-lucide="image-down" class="w-4 h-4"></i>
+          <span>ទាញយកជារូបភាព (Download PNG Image)</span>
+        </button>
+
+        <button onclick="window.print()" class="px-5 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 flex items-center justify-center gap-2 transition">
+          <i data-lucide="printer" class="w-4 h-4"></i>
+          <span>Print / PDF</span>
+        </button>
+
+        <button onclick="restartFullExam()" class="px-5 py-3.5 rounded-2xl bg-brand-primary hover:bg-indigo-500 text-white font-bold text-xs shadow-xl flex items-center justify-center gap-2 transition">
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          <span>ធ្វើវិញ្ញាសាឡើងវិញ</span>
+        </button>
+      </div>
+
+      <!-- Detailed Review of 50 Questions -->
+      <div class="glass-card p-6 rounded-3xl border border-slate-800 space-y-3 no-print">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+          <span>កំណែចម្លើយលម្អិតទាំង ៥០ សំណួរ</span>
+        </h4>
+        <div id="answers-review-container" class="space-y-3 max-h-96 overflow-y-auto pr-1">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full border-t border-slate-800/80 py-4 px-4 text-center text-xs text-slate-500 glass-card no-print mt-auto">
+    <p>កម្មវិធីតេស្តគណិតវិទ្យាថ្នាក់ទី១០ (មេរៀនទី២៖ សំណុំ) · រៀបរៀងដោយ <strong class="text-brand-gold">ចាន់ សុខហេង</strong></p>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- DATABASE & JAVASCRIPT LOGIC ENGINE -->
+  <!-- ======================================================== -->
+  <script>
+    // RAW DATABASE OF 50 UNIQUE SET THEORY QUESTIONS (10 PER LEVEL)
+    const rawQuestions = [
+      // -------------------------------------------------------------
+      // កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន (Basic Definitions, Elements, Subsets)
+      // -------------------------------------------------------------
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "បើ $A = \\{1, 3, 5, 7\\}$ តើការសរសេរណាមួយខាងក្រោមនេះត្រឹមត្រូវ?",
+        options: ["$3 \\in A$", "$4 \\in A$", "$7 \\notin A$", "$\\{5\\} \\in A$"],
+        correct: 0,
+        exp: "លេខ $3$ ជាធាតុរបស់សំណុំ $A$ ដូច្នេះសរសេរ $3 \\in A$។ ចំណែក $\\{5\\}$ ជាសំណុំ មិនមែនជាធាតុទេ។"
+      },
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "តើសំណុំទទេ (Empty Set) ត្រូវបានតាងដោយនិមិត្តសញ្ញាណា?",
+        options: ["$\\emptyset$ ឬ $\\{\\}$", "$\\{0\\}$", "$\\{\\emptyset\\}$", "$\\phi = 0$"],
+        correct: 0,
+        exp: "សំណុំទទេគឺជាសំណុំដែលគ្មានធាតុសោះ តាងដោយ $\\emptyset$ ឬ $\\{\\}$។ ចំណែក $\\{0\\}$ ឬ $\\{\\emptyset\\}$ មានធាតុមួយ មិនមែនជាសំណុំទទេទេ។"
+      },
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "តើសំណុំណាខាងក្រោមនេះជា «សំណុំទទេ»?",
+        options: ["$A = \\{x \\in \\mathbb{R} \\mid x^2 + 4 = 0\\}$", "$B = \\{x \\in \\mathbb{N} \\mid x < 2\\}$", "$C = \\{x \\in \\mathbb{Z} \\mid x^2 = 9\\}$", "$D = \\{0\\}$"],
+        correct: 0,
+        exp: "សមីការ $x^2 + 4 = 0 \\iff x^2 = -4$ គ្មានឬសក្នុង $\\mathbb{R}$ ឡើយ ដូច្នេះ $A = \\emptyset$។"
+      },
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "កំណត់កាឌីណាល់ (ចំនួនធាតុ) នៃសំណុំ $M = \\{x \\in \\mathbb{N} \\mid 2 \\le x < 9\\}$ ៖",
+        options: ["$n(M) = 7$", "$n(M) = 8$", "$n(M) = 6$", "$n(M) = 9$"],
+        correct: 0,
+        exp: "ធាតុរបស់ $M$ គឺ $\\{2, 3, 4, 5, 6, 7, 8\\}$ ដែលមានចំនួនសរុប $7$ ធាតុ ដូច្នេះ $n(M) = 7$។"
+      },
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "បើ $A = \\{a, b, c\\}$ តើសំណុំ $A$ មានចំនួនសំណុំរង (Subsets) ទាំងអស់ប៉ុន្មាន?",
+        options: ["$8$", "$6$", "$7$", "$9$"],
+        correct: 0,
+        exp: "ចំនួនសំណុំរងនៃសំណុំមួយដែលមាន $n$ ធាតុគឺ $2^n$។ ដោយ $n=3 \\implies 2^3 = 8$។"
+      },
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "តើការអះអាងណាមួយខាងក្រោមនេះមិនពិត?",
+        options: ["$\\emptyset \\subset \\emptyset$", "$\\emptyset \\subseteq A, \\forall A$", "$A \\subseteq A, \\forall A$", "$\\emptyset \\in \\mathcal{P}(A)$"],
+        correct: 0,
+        exp: "$\\emptyset \\subseteq \\emptyset$ តែមិនមែនជាសំណុំរងពិតទេ ($\\emptyset \\not\\subset \\emptyset$) ព្រោះគ្មានធាតុដើម្បីឱ្យខុសគ្នា។"
+      },
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "តើសំណុំណាខាងក្រោមនេះជា «សំណុំរាប់មិនអស់» (Infinite Set)?",
+        options: ["$A = \\{x \\in \\mathbb{Q} \\mid 0 < x < 1\\}$", "$B = \\{x \\in \\mathbb{N} \\mid x < 1000000\\}$", "$C = \\{x \\in \\mathbb{Z} \\mid x^2 < 100\\}$", "$D = \\emptyset$"],
+        correct: 0,
+        exp: "ចន្លោះចំនួនសនិទាន $(0, 1)$ មានចំនួនមិនអស់ឡើយ ដូច្នេះ $A$ ជាសំណុំរាប់មិនអស់។"
+      },
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "បើ $A = \\{x \\in \\mathbb{N} \\mid x \\le 4\\}$ និង $B = \\{1, 2, 3, 4\\}$ តើទំនាក់ទំនងរវាង $A$ និង $B$ ជាអ្វី?",
+        options: ["$A = B$ (សំណុំស្មើគ្នា)", "$A \\subset B$", "$B \\subset A$", "$A \\cap B = \\emptyset$"],
+        correct: 0,
+        exp: "ក្នុង $\\mathbb{N}$ (ចំនួនគត់ធម្មជាតិ $1, 2, 3, 4$) នោះ $A = \\{1, 2, 3, 4\\}$ ដូចនេះ $A = B$។"
+      },
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "សំណុំស្វ័យគុណ $\\mathcal{P}(\\emptyset)$ នៃសំណុំទទេស្មើនឹង៖",
+        options: ["$\\{\\emptyset\\}$", "$\\emptyset$", "$\\{0\\}$", "$0$"],
+        correct: 0,
+        exp: "$\\mathcal{P}(\\emptyset)$ មានចំនួនធាតុ $2^0 = 1$ គឺ $\\{\\emptyset\\}$។"
+      },
+      {
+        level: 1, levelName: "កម្រិត ១ ៖ គ្រឹះមូលដ្ឋាន",
+        q: "បើ $S = \\{x \\in \\mathbb{Z} \\mid x^2 - 5x + 6 = 0\\}$ នោះការសរសេរ $S$ ដោយរៀបរាប់ធាតុគឺ៖",
+        options: ["$S = \\{2, 3\\}$", "$S = \\{-2, -3\\}$", "$S = \\{1, 6\\}$", "$S = \\{-1, -6\\}$"],
+        correct: 0,
+        exp: "$x^2 - 5x + 6 = 0 \\iff (x-2)(x-3)=0 \\implies x=2, 3$ ដូច្នេះ $S = \\{2, 3\\}$។"
+      },
+
+      // -------------------------------------------------------------
+      // កម្រិត ២ ៖ មធ្យមស្រាល (Set Operations: Union, Intersection, Difference)
+      // -------------------------------------------------------------
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "បើ $A = \\{1, 2, 3, 4\\}$ និង $B = \\{3, 4, 5, 6\\}$ ចូររកប្រជុំសំណុំ $A \\cup B$ ៖",
+        options: ["$\\{1, 2, 3, 4, 5, 6\\}$", "$\\{3, 4\\}$", "$\\{1, 2\\}$", "$\\{5, 6\\}$"],
+        correct: 0,
+        exp: "$A \\cup B = \\{x \\mid x \\in A \\text{ ឬ } x \\in B\\} = \\{1, 2, 3, 4, 5, 6\\}$។"
+      },
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "បើ $A = \\{1, 2, 3, 4\\}$ និង $B = \\{3, 4, 5, 6\\}$ ចូររកប្រសព្វសំណុំ $A \\cap B$ ៖",
+        options: ["$\\{3, 4\\}$", "$\\{1, 2, 3, 4, 5, 6\\}$", "$\\{1, 2\\}$", "$\\{5, 6\\}$"],
+        correct: 0,
+        exp: "$A \\cap B$ គឺជាសំណុំនៃធាតុរួមរវាង $A$ និង $B$ គឺ $\\{3, 4\\}$។"
+      },
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "បើ $A = \\{1, 2, 3, 4\\}$ និង $B = \\{3, 4, 5, 6\\}$ ចូររកផលដកសំណុំ $A \\setminus B$ ៖",
+        options: ["$\\{1, 2\\}$", "$\\{5, 6\\}$", "$\\{3, 4\\}$", "$\\{1, 2, 5, 6\\}$"],
+        correct: 0,
+        exp: "$A \\setminus B = \\{x \\in A \\mid x \\notin B\\} = \\{1, 2\\}$។"
+      },
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "បើ $A = \\{1, 2, 3, 4\\}$ និង $B = \\{3, 4, 5, 6\\}$ ចូររកផលដកសំណុំ $B \\setminus A$ ៖",
+        options: ["$\\{5, 6\\}$", "$\\{1, 2\\}$", "$\\{3, 4\\}$", "$\\{1, 2, 3, 4\\}$"],
+        correct: 0,
+        exp: "$B \\setminus A = \\{x \\in B \\mid x \\notin A\\} = \\{5, 6\\}$។"
+      },
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "គេឱ្យសំណុំសកល $U = \\{1, 2, 3, 4, 5, 6, 7, 8, 9\\}$ និង $A = \\{2, 4, 6, 8\\}$។ ចូររកសំណុំបំពេញ $A^c$ (ឬ $\\bar{A}$) ៖",
+        options: ["$\\{1, 3, 5, 7, 9\\}$", "$\\{2, 4, 6, 8\\}$", "$\\{0, 1, 3, 5\\}$", "$U$"],
+        correct: 0,
+        exp: "$A^c = U \\setminus A = \\{1, 3, 5, 7, 9\\}$។"
+      },
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "គេថាពីរ សំណុំ $A$ និង $B$ ជា «សំណុំគ្មានធាតុរួម» (Disjoint Sets) លុះត្រាតែ៖",
+        options: ["$A \\cap B = \\emptyset$", "$A \\cup B = U$", "$A \\setminus B = \\emptyset$", "$A = B$"],
+        correct: 0,
+        exp: "សំណុំពីរគ្មានធាតុរួម (Disjoint) លុះត្រាតែប្រសព្វរបស់វាជាសំណុំទទេ $A \\cap B = \\emptyset$។"
+      },
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "សម្រាប់គ្រប់សំណុំ $A$ តើតម្លៃនៃ $A \\cup \\emptyset$ និង $A \\cap \\emptyset$ ស្មើនឹងអ្វី?",
+        options: ["$A$ និង $\\emptyset$", "$\\emptyset$ និង $A$", "$A$ និង $A$", "$\\emptyset$ និង $\\emptyset$"],
+        correct: 0,
+        exp: "$A \\cup \\emptyset = A$ និង $A \\cap \\emptyset = \\emptyset$។"
+      },
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "តម្លៃនៃ $(A^c)^c$ (បំពេញទ្វេនៃសំណុំ $A$) ស្មើនឹង៖",
+        options: ["$A$", "$A^c$", "$U$", "$\\emptyset$"],
+        correct: 0,
+        exp: "ច្បាប់បំពេញទ្វេ (Double Complement Law)៖ $(A^c)^c = A$។"
+      },
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "បើ $A \\subseteq B$ នោះផលដក $A \\setminus B$ ស្មើនឹង៖",
+        options: ["$\\emptyset$", "$A$", "$B$", "$U$"],
+        correct: 0,
+        exp: "បើ $A \\subseteq B$ នោះគ្រប់ធាតុនៃ $A$ សុទ្ធតែនៅក្នុង $B$ ដូច្នេះគ្មានធាតុណានៅក្នុង $A$ ក្រៅពី $B$ ឡើយ $\\implies A \\setminus B = \\emptyset$។"
+      },
+      {
+        level: 2, levelName: "កម្រិត ២ ៖ មធ្យមស្រាល",
+        q: "បើ $A = \\{x, y\\}$ ចូរកំណត់សំណុំស្វ័យគុណ $\\mathcal{P}(A)$ ៖",
+        options: ["$\\{\\emptyset, \\{x\\}, \\{y\\}, \\{x, y\\}\\}$", "$\\{\\{x\\}, \\{y\\}\\}$", "$\\{x, y, \\emptyset\\}$", "$\\{\\emptyset, \\{x, y\\}\\}$"],
+        correct: 0,
+        exp: "សំណុំស្វ័យគុណ $\\mathcal{P}(A)$ គឺជាសំណុំនៃសំណុំរងទាំងអស់៖ $\\{\\emptyset, \\{x\\}, \\{y\\}, \\{x, y\\}\\}$។"
+      },
+
+      // -------------------------------------------------------------
+      // កម្រិត ៣ ៖ មធ្យមពិបាក (Cardinality Formulas, De Morgan's Laws)
+      // -------------------------------------------------------------
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "បើ $n(A) = 15$, $n(B) = 20$ និង $n(A \\cap B) = 7$ ចូរគណនា $n(A \\cup B)$ ៖",
+        options: ["$28$", "$35$", "$42$", "$27$"],
+        correct: 0,
+        exp: "តាមរូបមន្ត $n(A \\cup B) = n(A) + n(B) - n(A \\cap B) = 15 + 20 - 7 = 28$។"
+      },
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "បើ $n(A \\cup B) = 45$, $n(A) = 30$ និង $n(B) = 25$ ចូរគណនា $n(A \\cap B)$ ៖",
+        options: ["$10$", "$15$", "$5$", "$20$"],
+        correct: 0,
+        exp: "$n(A \\cap B) = n(A) + n(B) - n(A \\cup B) = 30 + 25 - 45 = 10$។"
+      },
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "ច្បាប់ដឺម៉ូកង់ (De Morgan's Laws) សម្រាប់សំណុំចែងថា $(A \\cup B)^c$ ស្មើនឹង៖",
+        options: ["$A^c \\cap B^c$", "$A^c \\cup B^c$", "$A \\cap B$", "$(A \\cap B)^c$"],
+        correct: 0,
+        exp: "តាមច្បាប់ដឺម៉ូកង់៖ $(A \\cup B)^c = A^c \\cap B^c$។"
+      },
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "ច្បាប់ដឺម៉ូកង់សម្រាប់សំណុំចែងថា $(A \\cap B)^c$ ស្មើនឹង៖",
+        options: ["$A^c \\cup B^c$", "$A^c \\cap B^c$", "$A \\cup B$", "$A^c \\setminus B^c$"],
+        correct: 0,
+        exp: "តាមច្បាប់ដឺម៉ូកង់៖ $(A \\cap B)^c = A^c \\cup B^c$។"
+      },
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "រូបមន្តសម្រាប់គណនាកាឌីណាល់នៃផលដកសំណុំ $n(A \\setminus B)$ គឺ៖",
+        options: ["$n(A) - n(A \\cap B)$", "$n(A) - n(B)$", "$n(A \\cup B) - n(B)$", "$n(A) + n(B) - n(A \\cap B)$"],
+        correct: 0,
+        exp: "$n(A \\setminus B) = n(A) - n(A \\cap B)$ ឬ $n(A \\cup B) - n(B)$។"
+      },
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "បើ $n(U) = 60$, $n(A) = 35$, $n(B) = 25$ និង $n(A \\cap B) = 12$ ចូរគណនា $n((A \\cup B)^c)$ ៖",
+        options: ["$12$", "$48$", "$15$", "$8$"],
+        correct: 0,
+        exp: "$n(A \\cup B) = 35 + 25 - 12 = 48$។ ដូចនេះ $n((A \\cup B)^c) = n(U) - n(A \\cup B) = 60 - 48 = 12$។"
+      },
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "ផលសងស៊ីមេទ្រី (Symmetric Difference) $A \\Delta B$ ត្រូវបានកំណត់ដោយ៖",
+        options: ["$(A \\setminus B) \\cup (B \\setminus A)$", "$(A \\cup B) \\cap (A \\cap B)$", "$A \\setminus (A \\cap B)$", "$A \\cup B$"],
+        correct: 0,
+        exp: "$A \\Delta B = (A \\setminus B) \\cup (B \\setminus A) = (A \\cup B) \\setminus (A \\cap B)$។"
+      },
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "បើ $A = \\{1, 2, 3\\}$ និង $B = \\{3, 4, 5\\}$ នោះផលសងស៊ីមេទ្រី $A \\Delta B$ គឺ៖",
+        options: ["$\\{1, 2, 4, 5\\}$", "$\\{3\\}$", "$\\{1, 2\\}$", "$\\{1, 2, 3, 4, 5\\}$"],
+        correct: 0,
+        exp: "$A \\setminus B = \\{1, 2\\}$ និង $B \\setminus A = \\{4, 5\\} \\implies A \\Delta B = \\{1, 2, 4, 5\\}$។"
+      },
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "តើសំណុំមួយដែលមាន $5$ ធាតុ មានចំនួនសំណុំរងពិត (Proper Subsets) ប៉ុន្មាន?",
+        options: ["$31$", "$32$", "$30$", "$16$"],
+        correct: 0,
+        exp: "ចំនួនសំណុំរងពិតគឺ $2^n - 1 = 2^5 - 1 = 32 - 1 = 31$ (មិនរាប់បញ្ចូលខ្លួនវា)។"
+      },
+      {
+        level: 3, levelName: "កម្រិត ៣ ៖ មធ្យមពិបាក",
+        q: "តាមច្បាប់បំណែងចែក (Distributive Law) កន្សោម $A \\cap (B \\cup C)$ ស្មើនឹង៖",
+        options: ["$(A \\cap B) \\cup (A \\cap C)$", "$(A \\cup B) \\cap (A \\cup C)$", "$(A \\cap B) \\cap C$", "$A \\cup (B \\cap C)$"],
+        correct: 0,
+        exp: "ច្បាប់បំណែងចែកនៃប្រសព្វធៀបនឹងប្រជុំ៖ $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$។"
+      },
+
+      // -------------------------------------------------------------
+      // កម្រិត ៤ ៖ កម្រិតខ្ពស់ (3 Sets Cardinality, Venn Word Problems, Cartesian Product)
+      // -------------------------------------------------------------
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "ក្នុងថ្នាក់រៀនមួយមានសិស្ស $40$ នាក់។ សិស្ស $24$ នាក់ចូលចិត្តគណិតវិទ្យា, $18$ នាក់ចូលចិត្តរូបវិទ្យា និង $8$ នាក់ចូលចិត្តមុខវិជ្ជាទាំងពីរ។ តើមានសិស្សប៉ុន្មាននាក់មិនចូលចិត្តមុខវិជ្ជាទាំងពីរ?",
+        options: ["$6$ នាក់", "$8$ នាក់", "$10$ នាក់", "$4$ នាក់"],
+        correct: 0,
+        exp: "$n(M \\cup P) = 24 + 18 - 8 = 34$ នាក់។ ចំនួនសិស្សមិនចូលចិត្តទាំងពីរគឺ $40 - 34 = 6$ នាក់។"
+      },
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "បើ $A = \\{1, 2\\}$ និង $B = \\{a, b, c\\}$ ចូរកំណត់ចំនួនធាតុនៃផលគុណដេកាត $A \\times B$ ៖",
+        options: ["$n(A \\times B) = 6$", "$n(A \\times B) = 5$", "$n(A \\times B) = 8$", "$n(A \\times B) = 9$"],
+        correct: 0,
+        exp: "$n(A \\times B) = n(A) \\times n(B) = 2 \\times 3 = 6$ គូរៀប។"
+      },
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "រូបមន្តកាឌីណាល់នៃប្រជុំ ៣ សំណុំ $n(A \\cup B \\cup C)$ ត្រូវនឹងកន្សោមណា?",
+        options: [
+          "$n(A)+n(B)+n(C) - [n(A \\cap B)+n(B \\cap C)+n(C \\cap A)] + n(A \\cap B \\cap C)$",
+          "$n(A)+n(B)+n(C) - n(A \\cap B \\cap C)$",
+          "$n(A)+n(B)+n(C) - [n(A \\cap B)+n(B \\cap C)+n(C \\cap A)]$",
+          "$n(A)+n(B)+n(C) + [n(A \\cap B)+n(B \\cap C)+n(C \\cap A)] - n(A \\cap B \\cap C)$"
+        ],
+        correct: 0,
+        exp: "នេះជាគោលការណ៍ Inclusion-Exclusion សម្រាប់ ៣ សំណុំ។"
+      },
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "បើ $A = [2, 7)$ និង $B = (4, 9]$ ជាចន្លោះលើ $\\mathbb{R}$ ចូររកប្រសព្វ $A \\cap B$ ៖",
+        options: ["$(4, 7)$", "$[2, 9]$", "$[4, 7)$", "$(2, 9)$"],
+        correct: 0,
+        exp: "ចន្លោះរួមរវាង $[2, 7)$ និង $(4, 9]$ គឺ $(4, 7)$ ព្រោះ $x > 4$ និង $x < 7$។"
+      },
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "បើ $A = [-1, 5]$ និង $B = (2, 8)$ ចូររកផលដក $A \\setminus B$ ៖",
+        options: ["$[-1, 2]$", "$[-1, 2)$", "$(5, 8)$", "$[-1, 8)$"],
+        correct: 0,
+        exp: "$A \\setminus B$ គឺជាធាតុក្នុង $A$ តែមិននៅក្នុង $B$ គឺ $[-1, 2]$ (រួមបញ្ចូល $2$ ព្រោះ $2 \\notin B$)។"
+      },
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "តើទំនាក់ទំនងណាមួយខាងក្រោមនេះសមមូលនឹងលក្ខខណ្ឌ $A \\subseteq B$?",
+        options: ["$A \\cap B = A$", "$A \\cup B = A$", "$A \\setminus B = B$", "$A \\cap B = B$"],
+        correct: 0,
+        exp: "$A \\subseteq B \\iff A \\cap B = A$ និង $A \\cup B = B$។"
+      },
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "បើ $A \\subseteq B$ តើការទាញសន្និដ្ឋានលើសំណុំបំពេញណាមួយត្រឹមត្រូវ?",
+        options: ["$B^c \\subseteq A^c$", "$A^c \\subseteq B^c$", "$A^c \\cup B^c = U$", "$A^c = B^c$"],
+        correct: 0,
+        exp: "បើ $A \\subseteq B$ នោះសំណុំបំពេញត្រឡប់មកវិញគឺ $B^c \\subseteq A^c$។"
+      },
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "ការស្ទង់មតិលើមនុស្ស $100$ នាក់៖ $65$ នាក់ផឹកតែ, $45$ នាក់ផឹកកាហ្វេ។ បើគ្រប់គ្នាយ៉ាងហោចណាស់ផឹកភេសជ្ជៈមួយមុខ តើមានមនុស្សប៉ុន្មាននាក់ផឹកតែមួយមុខគត់ (មិនផឹកកាហ្វេ)?",
+        options: ["$55$ នាក់", "$10$ នាក់", "$35$ នាក់", "$45$ នាក់"],
+        correct: 0,
+        exp: "$n(T \\cap C) = 65 + 45 - 100 = 10$ នាក់។ អ្នកផឹកតែមួយមុខគត់គឺ $n(T \\setminus C) = 65 - 10 = 55$ នាក់។"
+      },
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "បើ $n(A \\times B) = 24$ និង $A = \\{x \\in \\mathbb{N} \\mid x^2 \\le 16\\}$ នោះកាឌីណាល់ $n(B)$ ស្មើនឹង៖",
+        options: ["$6$", "$4$", "$8$", "$12$"],
+        correct: 0,
+        exp: "ក្នុង $\\mathbb{N}$, $x^2 \\le 16 \\implies A = \\{1, 2, 3, 4\\} \\implies n(A) = 4$។ ដូចនេះ $n(B) = 24 / 4 = 6$។"
+      },
+      {
+        level: 4, levelName: "កម្រិត ៤ ៖ កម្រិតខ្ពស់",
+        q: "កន្សោមសំណុំ $(A \\cup B) \\cap (A \\cup B^c)$ អាចសម្រួលស្មើនឹង៖",
+        options: ["$A$", "$B$", "$A \\cap B$", "$U$"],
+        correct: 0,
+        exp: "តាមច្បាប់បំណែងចែក៖ $(A \\cup B) \\cap (A \\cup B^c) = A \\cup (B \\cap B^c) = A \\cup \\emptyset = A$។"
+      },
+
+      // -------------------------------------------------------------
+      // កម្រិត ៥ ៖ ពិបាកបំផុត (Advanced Proofs, Complex Equations, Olympiad Style)
+      // -------------------------------------------------------------
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "រកចំនួនគត់វិជ្ជមាន $x \\le 100$ ដែលមិនចែកដាច់នឹង $2$ ផង និងមិនចែកដាច់នឹង $3$ ផង ៖",
+        options: ["$33$", "$17$", "$50$", "$67$"],
+        correct: 0,
+        exp: "$n(A_2) = 50$, $n(A_3) = 33$, $n(A_2 \\cap A_3) = n(A_6) = 16$។ $n(A_2 \\cup A_3) = 50 + 33 - 16 = 67$។ មិនចែកដាច់នឹងទាំងពីរគឺ $100 - 67 = 33$។"
+      },
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "តើសមភាពសំណុំណាមួយខាងក្រោមនេះមិនពិតជានិច្ច?",
+        options: ["$\\mathcal{P}(A \\cup B) = \\mathcal{P}(A) \\cup \\mathcal{P}(B)$", "$\\mathcal{P}(A \\cap B) = \\mathcal{P}(A) \\cap \\mathcal{P}(B)$", "$A \\setminus (B \\cup C) = (A \\setminus B) \\cap (A \\setminus C)$", "$A \\setminus (B \\cap C) = (A \\setminus B) \\cup (A \\setminus C)$"],
+        correct: 0,
+        exp: "$\\mathcal{P}(A) \\cup \\mathcal{P}(B) \\subseteq \\mathcal{P}(A \\cup B)$ ប៉ុន្តែមិនស្មើគ្នាជានិច្ចទេ (ឧ. $A=\\{1\\}, B=\\{2\\} \\implies \\{1, 2\\} \\in \\mathcal{P}(A \\cup B)$ តែមិននៅក្នុង $\\mathcal{P}(A) \\cup \\mathcal{P}(B)$ ឡើយ)។"
+      },
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "បើ $A \\Delta B = A \\cup B$ តើយើងអាចទាញសន្និដ្ឋានបានយ៉ាងដូចម្តេចចំពោះ $A$ និង $B$?",
+        options: ["$A \\cap B = \\emptyset$", "$A = B$", "$A \\subseteq B$", "$B \\subseteq A$"],
+        correct: 0,
+        exp: "$A \\Delta B = (A \\cup B) \\setminus (A \\cap B)$។ ដើម្បីឱ្យស្មើ $A \\cup B$ លុះត្រាតែ $A \\cap B = \\emptyset$។"
+      },
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "បើ $A, B, C$ ជាសំណុំបីផ្ទៀងផ្ទាត់ $A \\cup B = A \\cup C$ និង $A \\cap B = A \\cap C$ តើយើងទាញបានអ្វី?",
+        options: ["$B = C$", "$A = B = C$", "$A = \\emptyset$", "$B \\cap C = \\emptyset$"],
+        correct: 0,
+        exp: "នេះជាទ្រឹស្តីបទមូលដ្ឋាននៃសំណុំ៖ បើប្រជុំស្មើគ្នា និងប្រសព្វស្មើគ្នាជាមួយសំណុំ $A$ នោះនាំឱ្យ $B = C$។"
+      },
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "កាឌីណាល់នៃសំណុំស្វ័យគុណជាន់ខ្ពស់ $n(\\mathcal{P}(\\mathcal{P}(\\mathcal{P}(\\emptyset))))$ ស្មើនឹង៖",
+        options: ["$4$", "$2$", "$16$", "$8$"],
+        correct: 0,
+        exp: "$n(\\emptyset) = 0 \\implies n(\\mathcal{P}(\\emptyset)) = 2^0 = 1 \\implies n(\\mathcal{P}(\\mathcal{P}(\\emptyset))) = 2^1 = 2 \\implies n(\\mathcal{P}(\\mathcal{P}(\\mathcal{P}(\\emptyset)))) = 2^2 = 4$។"
+      },
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "ចំពោះគ្រប់សំណុំ $A, B$ កន្សោម $(A \\setminus B) \\cup (B \\setminus A) \\cup (A \\cap B)$ ស្មើនឹង៖",
+        options: ["$A \\cup B$", "$A \\cap B$", "$A \\Delta B$", "$U$"],
+        correct: 0,
+        exp: "តំបន់ទាំងបីនេះបំបែកជាបំណែកដាច់ពីគ្នា (Partition) នៃ $A \\cup B$ ដូច្នេះផលបូកប្រជុំរបស់វាគឺ $A \\cup B$។"
+      },
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "ក្នុងការប្រឡងមួយ សិស្សទាំងអស់ត្រូវឆ្លើយសំណួរយ៉ាងតិច ១ ក្នុងចំណោមសំណួរ ៣៖ $A, B, C$។ មាន $20$ នាក់ជាប់ $A$, $22$ នាក់ជាប់ $B$, $24$ នាក់ជាប់ $C$, $10$ នាក់ជាប់ $A$ និង $B$, $12$ នាក់ជាប់ $B$ និង $C$, $11$ នាក់ជាប់ $A$ និង $C$, ហើយ $6$ នាក់ជាប់ទាំង ៣។ រកចំនួនសិស្សសរុប ៖",
+        options: ["$39$ នាក់", "$45$ នាក់", "$37$ នាក់", "$42$ នាក់"],
+        correct: 0,
+        exp: "$n(A \\cup B \\cup C) = (20 + 22 + 24) - (10 + 12 + 11) + 6 = 66 - 33 + 6 = 39$ នាក់។"
+      },
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "បើ $A = \\{1, 2, 3, 4, 5, 6\\}$ តើមានសំណុំរង $X \\subseteq A$ ប៉ុន្មានដែលផ្ទុកធាតុ $1$ និង $2$ ប៉ុន្តែមិនផ្ទុកធាតុ $6$?",
+        options: ["$8$", "$16$", "$4$", "$32$"],
+        correct: 0,
+        exp: "ធាតុ $1, 2$ ត្រូវតែយក (ជម្រើស ១) ធាតុ $6$ មិនយក (ជម្រើស ១)។ នៅសល់ធាតុ $\\{3, 4, 5\\}$ ចំនួន ៣ ធាតុ $\\implies 2^3 = 8$ សំណុំរង។"
+      },
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "សម្រួលកន្សោមសំណុំ $E = (A \\cap B) \\cup (A \\cap B^c) \\cup (A^c \\cap B)$ ៖",
+        options: ["$A \\cup B$", "$A \\cap B$", "$U$", "$A \\setminus B$"],
+        correct: 0,
+        exp: "$(A \\cap B) \\cup (A \\cap B^c) = A$។ នោះ $A \\cup (A^c \\cap B) = (A \\cup A^c) \\cap (A \\cup B) = U \\cap (A \\cup B) = A \\cup B$។"
+      },
+      {
+        level: 5, levelName: "កម្រិត ៥ ៖ ពិបាកបំផុត",
+        q: "រកសំណុំចន្លោះនៃ $\\mathbb{R} \\setminus ((-\\infty, 3] \\cup [8, +\\infty))$ ៖",
+        options: ["$(3, 8)$", "$[3, 8]$", "$[3, 8)$", "$(3, 8]$"],
+        correct: 0,
+        exp: "ប្រជុំ $(-\\infty, 3] \\cup [8, +\\infty)$ គឺគ្រប់ $x \\le 3$ ឬ $x \\ge 8$។ ផលដកពី $\\mathbb{R}$ គឺសំណុំបំពេញដែលនៅចន្លោះកណ្តាល $3 < x < 8$ គឺ $(3, 8)$។"
+      }
+    ];
+
+    // APPLICATION STATE
+    let allQuestions = [];
+    let currentStudent = { name: '', gender: 'ប្រុស', grade: '១០ A', school: '' };
+    let userAnswers = {};
+    let currentQuestionIdx = 0;
+    let timerInterval = null;
+    let secondsLeft = 3600; // 60 minutes for 50 questions
+
+    // FISHER-YATES SHUFFLE ALGORITHM FOR CHOICES
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // PREPARE QUESTIONS WITH SHUFFLED CHOICES
+    function prepareQuestions() {
+      allQuestions = rawQuestions.map(item => {
+        const correctText = item.options[item.correct];
+        const shuffledOpts = shuffleArray(item.options);
+        const newCorrectIdx = shuffledOpts.indexOf(correctText);
+
+        return {
+          ...item,
+          options: shuffledOpts,
+          correct: newCorrectIdx
+        };
+      });
+    }
+
+    // 1. START QUIZ
+    function startQuiz() {
+      const name = document.getElementById('stu-name').value.trim();
+      const school = document.getElementById('stu-school').value.trim();
+      const grade = document.getElementById('stu-grade').value.trim();
+      const gender = document.getElementById('stu-gender').value;
+
+      if (!name || !school) {
+        alert("សូមបំពេញឈ្មោះ និងសាលារៀនរបស់ប្អូនឱ្យបានពេញលេញ!");
+        return;
+      }
+
+      currentStudent = { name, gender, grade, school };
+      userAnswers = {};
+      currentQuestionIdx = 0;
+      secondsLeft = 3600; // 60 mins
+
+      // Shuffle options randomly
+      prepareQuestions();
+
+      document.getElementById('view-profile').classList.add('hidden');
+      document.getElementById('view-result').classList.add('hidden');
+      document.getElementById('view-quiz').classList.remove('hidden');
+      document.getElementById('quiz-header-status').classList.remove('hidden');
+
+      startTimer();
+      renderCurrentQuestion();
+    }
+
+    // 2. RENDER QUESTION
+    function renderCurrentQuestion() {
+      const qData = allQuestions[currentQuestionIdx];
+      document.getElementById('current-q-num').textContent = currentQuestionIdx + 1;
+      document.getElementById('progress-bar').style.width = `${((currentQuestionIdx + 1) / 50) * 100}%`;
+
+      const stageIdx = Math.floor(currentQuestionIdx / 10) + 1;
+      document.getElementById('header-stage-badge').textContent = `កម្រិត ${stageIdx}/៥`;
+      document.getElementById('quiz-level-indicator').textContent = qData.levelName;
+      document.getElementById('badge-level-tag').textContent = `កម្រិត ${stageIdx} (សំណួរ ${((stageIdx - 1) * 10) + 1}-${stageIdx * 10})`;
+
+      document.getElementById('answered-count-badge').textContent = Object.keys(userAnswers).length;
+      document.getElementById('question-text').innerHTML = `សំណួរទី ${currentQuestionIdx + 1} ៖ ${qData.q}`;
+
+      const container = document.getElementById('options-container');
+      const optionLetters = ['A', 'B', 'C', 'D'];
+      const selected = userAnswers[currentQuestionIdx];
+
+      container.innerHTML = qData.options.map((opt, idx) => `
+        <div onclick="selectOption(${idx})" class="option-card p-4 rounded-2xl bg-slate-900/90 border border-slate-700/80 cursor-pointer flex items-center justify-between ${selected === idx ? 'selected' : ''}">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300 font-mono">
+              ${optionLetters[idx]}
+            </span>
+            <span class="text-sm font-semibold text-white tracking-wide">${opt}</span>
+          </div>
+          <div class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center ${selected === idx ? 'border-brand-cyan bg-brand-cyan text-slate-950' : ''}">
+            ${selected === idx ? '<i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>' : ''}
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('btn-prev').disabled = (currentQuestionIdx === 0);
+      const isLast = (currentQuestionIdx === allQuestions.length - 1);
+      document.getElementById('btn-next-label').textContent = isLast ? 'បញ្ចប់ការប្រឡង' : 'សំណួរបន្ទាប់';
+
+      lucide.createIcons();
+      renderMathInElement(document.getElementById('view-quiz'), {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false }
+        ]
+      });
+    }
+
+    function selectOption(idx) {
+      userAnswers[currentQuestionIdx] = idx;
+      renderCurrentQuestion();
+    }
+
+    function navigateQuestion(delta) {
+      const nextIdx = currentQuestionIdx + delta;
+      if (nextIdx >= 0 && nextIdx < allQuestions.length) {
+        currentQuestionIdx = nextIdx;
+        renderCurrentQuestion();
+      } else if (nextIdx >= allQuestions.length) {
+        const answeredCount = Object.keys(userAnswers).length;
+        if (answeredCount < 50) {
+          if (!confirm(`ប្អូនបានឆ្លើយបានតែ ${answeredCount}/50 សំណួរប៉ុណ្ណោះ។ តើប្អូនពិតជាចង់បញ្ចប់ការប្រឡងឥឡូវនេះមែនទេ?`)) {
+            return;
+          }
+        }
+        finishQuiz();
+      }
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (secondsLeft > 0) {
+          secondsLeft--;
+          const m = String(Math.floor(secondsLeft / 60)).padStart(2, '0');
+          const s = String(secondsLeft % 60).padStart(2, '0');
+          document.getElementById('timer-display').textContent = `${m}:${s}`;
+        } else {
+          clearInterval(timerInterval);
+          alert("អស់ពេលហើយ! ប្រព័ន្ធនឹងគណនាលទ្ធផលជូនប្អូនដោយស្វ័យប្រវត្តិ។");
+          finishQuiz();
+        }
+      }, 1000);
+    }
+
+    // 3. FINISH QUIZ & SHOW CERTIFICATE / RESULT
+    function finishQuiz() {
+      clearInterval(timerInterval);
+
+      let totalScore = 0;
+      let levelScores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+      allQuestions.forEach((q, idx) => {
+        if (userAnswers[idx] === q.correct) {
+          totalScore++;
+          levelScores[q.level]++;
+        }
+      });
+
+      const percentage = Math.round((totalScore / 50) * 100);
+      const timeSpentSec = 3600 - secondsLeft;
+      const spentMin = String(Math.floor(timeSpentSec / 60)).padStart(2, '0');
+      const spentSec = String(timeSpentSec % 60).padStart(2, '0');
+
+      document.getElementById('res-stu-name').textContent = currentStudent.name;
+      document.getElementById('res-stu-class').textContent = `${currentStudent.gender} / ${currentStudent.grade}`;
+      document.getElementById('res-stu-school').textContent = currentStudent.school;
+
+      document.getElementById('res-score-badge').textContent = `${totalScore}/50`;
+      document.getElementById('res-percentage-badge').textContent = `${percentage}%`;
+      document.getElementById('res-time-spent').textContent = `${spentMin}:${spentSec}`;
+
+      // Level Breakdown Row
+      const breakdownRow = document.getElementById('levels-breakdown-row');
+      breakdownRow.innerHTML = [1, 2, 3, 4, 5].map(lvl => `
+        <div class="p-2 rounded-xl bg-slate-900 border border-slate-700">
+          <span class="text-slate-400 block text-[10px]">កម្រិត ${lvl}</span>
+          <strong class="${levelScores[lvl] >= 7 ? 'text-emerald-400' : 'text-amber-400'} text-sm font-mono">${levelScores[lvl]}/10</strong>
+        </div>
+      `).join('');
+
+      let gradeVerdict = "និទ្ទេស A (ល្អប្រសើរណាស់)";
+      let gradeColor = "text-emerald-400";
+      if (percentage < 50) {
+        gradeVerdict = "និទ្ទេស F (ធ្លាក់ - ត្រូវខិតខំរៀនបន្ថែម)";
+        gradeColor = "text-rose-400";
+      } else if (percentage < 65) {
+        gradeVerdict = "និទ្ទេស E/D (មធ្យម)";
+        gradeColor = "text-amber-400";
+      } else if (percentage < 80) {
+        gradeVerdict = "និទ្ទេស C/B (ល្អបង្គួរ)";
+        gradeColor = "text-blue-400";
+      }
+      const gradeElem = document.getElementById('res-grade-badge');
+      gradeElem.textContent = gradeVerdict;
+      gradeElem.className = `text-sm font-bold block mt-2 ${gradeColor}`;
+
+      if (percentage >= 70) {
+        document.getElementById('certificate-heading').textContent = "បណ្ណសរសើរជ័យលាភីទ្រឹស្តីសំណុំ";
+      } else {
+        document.getElementById('certificate-heading').textContent = "ព្រឹត្តិបត្រលទ្ធផលតេស្តសំណុំ";
+      }
+
+      document.getElementById('res-date').textContent = new Date().toLocaleDateString('km-KH', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      // Review of all 50 questions
+      const reviewContainer = document.getElementById('answers-review-container');
+      const letters = ['A', 'B', 'C', 'D'];
+      reviewContainer.innerHTML = allQuestions.map((q, idx) => {
+        const userPick = userAnswers[idx];
+        const isCorrect = (userPick === q.correct);
+        return `
+          <div class="p-3.5 rounded-2xl bg-slate-900 border ${isCorrect ? 'border-emerald-500/40 bg-emerald-950/10' : 'border-rose-500/40 bg-rose-950/10'} text-xs space-y-1.5">
+            <div class="flex items-center justify-between font-bold">
+              <span class="text-white">${idx + 1}. [${q.levelName}] ${q.q}</span>
+              <span class="${isCorrect ? 'text-emerald-400' : 'text-rose-400'}">${isCorrect ? '✓ ត្រឹមត្រូវ' : '✗ មិនត្រឹមត្រូវ'}</span>
+            </div>
+            <div class="text-[11px] text-slate-400">
+              ចម្លើយរបស់អ្នក ៖ <strong class="${isCorrect ? 'text-emerald-300' : 'text-rose-300'} font-mono">${userPick !== undefined ? letters[userPick] + '. ' + q.options[userPick] : 'មិនបានឆ្លើយ'}</strong> | 
+              ចម្លើយត្រឹមត្រូវ ៖ <strong class="text-emerald-300 font-mono">${letters[q.correct]}. ${q.options[q.correct]}</strong>
+            </div>
+            <div class="text-[11px] text-amber-300/90 pt-1 border-t border-slate-800">
+              💡 ពន្យល់ ៖ ${q.exp}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('view-quiz').classList.add('hidden');
+      document.getElementById('quiz-header-status').classList.add('hidden');
+      document.getElementById('view-result').classList.remove('hidden');
+
+      lucide.createIcons();
+      renderMathInElement(document.getElementById('printable-certificate'), {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false }
+        ]
+      });
+
+      if (percentage >= 70) {
+        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+      }
+    }
+
+    // 4. DOWNLOAD CERTIFICATE / RESULT AS PNG IMAGE
+    function downloadAsImage() {
+      const element = document.getElementById('printable-certificate');
+      const btn = document.getElementById('btn-download-img');
+      const originalText = btn.innerHTML;
+
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>កំពុងបង្កើតរូបភាព...</span>`;
+      lucide.createIcons();
+
+      html2canvas(element, {
+        scale: 2.5,
+        backgroundColor: '#0A0F1D',
+        useCORS: true,
+        logging: false
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `ព្រឹត្តិបត្រសំណុំ_${currentStudent.name.replace(/\s+/g, '_')}_50Questions.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        btn.innerHTML = originalText;
+        lucide.createIcons();
+      }).catch(err => {
+        console.error("Canvas error:", err);
+        alert("មានបញ្ហាក្នុងការទាញយករូបភាព។ សូមសាកល្បងម្ដងទៀត!");
+        btn.innerHTML = originalText;
+        lucide.createIcons();
+      });
+    }
+
+    function restartFullExam() {
+      document.getElementById('view-result').classList.add('hidden');
+      document.getElementById('view-profile').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
